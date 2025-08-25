@@ -15,7 +15,7 @@ const Login = () => {
 
     if (currUser) {
       alert(`환영합니다, ${currUser.userNickname}님!`);
-      localStorage.setItem("loginUser", JSON.stringify(currUser));
+      localStorage.setItem("currUser", JSON.stringify(currUser));
       navigate("/Home");
     } else {
       alert("아이디 또는 비밀번호가 틀립니다.");
