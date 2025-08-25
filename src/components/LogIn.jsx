@@ -8,14 +8,14 @@ const Login = () => {
   const logInUser = (e) => {
     e.preventDefault();
     const users = JSON.parse(localStorage.getItem("users")) || [];
-    const loginUser = users.find(
+    const currUser = users.find(
       (user) =>
         user.userId === login.userId && user.userPassword === login.userPassword
     );
 
-    if (loginUser) {
-      alert(`환영합니다, ${loginUser.userNickname}님!`);
-      localStorage.setItem("loginUser", JSON.stringify(loginUser));
+    if (currUser) {
+      alert(`환영합니다, ${currUser.userNickname}님!`);
+      localStorage.setItem("loginUser", JSON.stringify(currUser));
       navigate("/Home");
     } else {
       alert("아이디 또는 비밀번호가 틀립니다.");
