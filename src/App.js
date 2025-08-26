@@ -9,19 +9,20 @@ import Login from './components/Login';
 import SignIn from './components/SignIn';
 import Post from './components/Post';
 import AddEditPost from './components/AddEditPost';
+import Ranking from './components/Ranking';
 
 
 const App = () => {
   return (
     <BrowserRouter>
     <Header />
-    <NaviBar />
       <Routes> 
           <Route path='/' element={<Home />} />
           <Route path='/login' element={<Login />} />
           <Route path='/signIn' element={<SignIn />} />
-          <Route path='/post/:id' element={<Post />} />
-          <Route path='/addEditpost/:id' element={<AddEditPost />} />
+          <Route path='/post/:postId' element={<Post />} />
+          <Route path='/addEditpost/:postId' element={<AddEditPost />} />
+          <Route path='/ranking' element={<Ranking />} />
       </Routes>
     </BrowserRouter>
   );
