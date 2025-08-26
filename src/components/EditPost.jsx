@@ -6,7 +6,7 @@ const EditPost =()=>{
 
     const [title,setTitle] = useState('');
     const [content,setContent] = useState('');
-    const [post,setPost] = useState([{postId:'',user:'',title:'',content:'', date:'', postLikes:'',}])
+    const [post,setPost] = useState({postId:'',user:'',title:'',content:'', date:'', postLikes:'',})
     const contentRef= useRef(null);
     const [currUser,setCurrUser] = useState({});
     const {ID} =useParams();
@@ -17,13 +17,19 @@ const EditPost =()=>{
       setCurrUser(user);
       const posts =(JSON.parse(localStorage.getItem('posts'))) || [];
       const currentPost=posts.find(p=>p.postId === ID);
-      setPost(currentPost);
-      setTitle(currentPost.title);
-      setContent(currentPost.content);
+      if (currentPost) {
+        setPost(currentPost);
+        setTitle(currentPost.title);
+        setContent(currentPost.content);
+      } else {
+        alert("해당 게시물을 찾을 수 없습니다.");
+        navigate("/home");
+      }
     },[])
 
-    const savePost =()=>{
+    const savePost =(e)=>{
 
+      e.preventDefault()
       if(title && content){ // 내용 유무 체크
           let saveCK=window.confirm('저장하시겠습까?') // 저장 컨펌 
 
@@ -50,7 +56,7 @@ const EditPost =()=>{
                         }
                 setPost(Modipost)
                 let posts =(JSON.parse(localStorage.getItem('posts'))) || []; 
-                posts = posts.map(p=>p.postId===post.postId?post :p);
+                posts = posts.map(p=>p.postId===Modipost.postId ? Modipost : p.postId?Modipost :p);
                 localStorage.setItem('posts',JSON.stringify(posts)); //localstotage에 넣기
                 navigate('/글리스트');
           }
