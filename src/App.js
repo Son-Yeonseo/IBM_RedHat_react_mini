@@ -5,7 +5,7 @@ import Header from './components/Header';
 import NaviBar from './components/NaviBar';
 
 import Home from './components/Home';
-import Login from './components/Login';
+import LogIn from './components/LogIn';
 import SignIn from './components/SignIn';
 import Post from './components/Post';
 import AddPost from './components/AddPost';
@@ -19,7 +19,7 @@ const App = () => {
     <Header />
       <Routes> 
           <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/logIn' element={<LogIn />} />
           <Route path='/signIn' element={<SignIn />} />
           <Route path='/post/:postId' element={<Post />} />
           <Route path='/addpost/:postId' element={<AddPost />} />
