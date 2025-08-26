@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from './UserProvider'; // Context 사용하도록 수정
 
-const Login = () => {
+const LogIn = () => {
   const [login, setLogin] = useState({ userId: "", userPassword: "" });
   const navigate = useNavigate();
+  
+  // Context에서 전역 상태 가져오기
+  const { users, setCurrUser } = useContext(UserContext);
 
   const logInUser = (e) => {
     e.preventDefault();
-    const users = JSON.parse(localStorage.getItem("users")) || [];
+    // localStorage 대신 Context의 users 사용
     const currUser = users.find(
       (user) =>
         user.userId === login.userId && user.userPassword === login.userPassword
@@ -15,15 +19,16 @@ const Login = () => {
 
     if (currUser) {
       alert(`환영합니다, ${currUser.userNickname}님!`);
-      localStorage.setItem("currUser", JSON.stringify(currUser));
-      navigate("/");
+      // Context의 setCurrUser 사용
+      setCurrUser(currUser);
+      navigate("/"); // Home 경로를 App.js에 맞춰 "/"로 수정
     } else {
       alert("아이디 또는 비밀번호가 틀립니다.");
     }
   };
 
   const userSignUp = () => {
-    navigate("/SignIn");
+    navigate("/signIn"); // 경로를 App.js에 맞춰 수정
   };
 
   return (
@@ -50,4 +55,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default LogIn;
