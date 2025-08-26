@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useUser } from './UserProvider';
 
 /*
   - path : /post/:postId
@@ -18,19 +19,39 @@ const Post = () => {
 
   const postId = '1';     // 실제 라우팅에서는 /post/:postId URL에서 추출(useParams()), 여기서는 기본값 설정
 
-  const [post, setPost] = useState(null);                      // 현재 게시글 데이터
+//   const [post, setPost] = useState(null);                      // 현재 게시글 데이터
   const [comments, setComments] = useState([]);                // 댓글 목록
   const [newComment, setNewComment] = useState('');            // 새 댓글 입력값
   const [editingComment, setEditingComment] = useState(null);  // 수정 중인 댓글 ID
   const [editCommentText, setEditCommentText] = useState('');  // 수정 중인 댓글 내용
   const [currentUser, setCurrentUser] = useState('');          // 현재 로그인 사용자
 
+
+  // 테스트용 함수-----------------------------------------------------
+  const handleSaveEdit = () =>{return;}
+  const handleAddComment = () =>{return;}
+  const handleEditComment = () =>{return;}
+  const handleDeleteComment = () =>{return;}
+  const handleLike = () =>{return;}
+  const currUser = useUser();
+
+  const post = {
+		postId,
+		user : currUser,
+		title : '제목',
+		content : '내용내용내용',
+		date : '2025-08-06 15-21',
+		postLikes:0,
+		};  
+  //테스트용 함수-----------------------------------------------------
+
+  
   // 데이터 초기화(useEffect) : 컴포넌트가 마운트되거나 postId가 변경될 때 실행
 
-	// 게시글 생성
+  // 게시글 생성
 
   // 좋아요 시스템 구현
-
+  
   // 댓글 CRUD
 
   return (

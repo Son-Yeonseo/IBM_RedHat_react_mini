@@ -1,9 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import Header from './components/Header';
-import NaviBar from './components/NaviBar';
-
+import TitleNaviBar from './components/TitleNaviBar';
 import Home from './components/Home';
 import LogIn from './components/LogIn';
 import SignIn from './components/SignIn';
@@ -16,13 +14,13 @@ import Ranking from './components/Ranking';
 const App = () => {
   return (
     <BrowserRouter>
-    <Header />
+    <TitleNaviBar />
       <Routes> 
           <Route path='/' element={<Home />} />
           <Route path='/logIn' element={<LogIn />} />
           <Route path='/signIn' element={<SignIn />} />
           <Route path='/post/:postId' element={<Post />} />
-          <Route path='/addpost/:postId' element={<AddPost />} />
+          <Route path='/addpost' element={<AddPost />} />
           <Route path='/editpost/:postId' element={<EditPost />} />
           <Route path='/ranking' element={<Ranking />} />
       </Routes>
