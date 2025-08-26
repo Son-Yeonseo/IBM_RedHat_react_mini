@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Header from './components/Header';
 import NaviBar from './components/NaviBar';
-
 import Home from './components/Home';
 import LogIn from './components/LogIn';
 import SignIn from './components/SignIn';
 import Post from './components/Post';
-import AddEditPost from './components/AddEditPost';
+import AddPost from './components/AddPost';
+import EditPost from './components/EditPost';
 
 
 const App = () => {
@@ -21,7 +21,8 @@ const App = () => {
           <Route path='/logIn' element={<LogIn />} />
           <Route path='/signIn' element={<SignIn />} />
           <Route path='/post/:id' element={<Post />} />
-          <Route path='/addEditpost/:id' element={<AddEditPost />} />
+          <Route path='/addPost' element={<AddPost />} />
+          <Route path='/editpost/:id' element={<EditPost />} />
       </Routes>
     </BrowserRouter>
   );

@@ -59,7 +59,7 @@ const Post = () => {
 				</div>
 				{/* 좋아요 버튼 */}
 				<div>
-					<button onClick={handleLike}><span>좋아요 {post.postLikes}</span></button>
+					{/* <button onClick={handleLike}><span>좋아요 {post.postLikes}</span></button> */}
 				</div>
       </div>
 			{/* 댓글 영역 */}
@@ -72,7 +72,7 @@ const Post = () => {
 						placeholder='댓글을 작성해보세요.'/>
 					</div>
 					<div>
-						<button onClick={handleAddComment} disabled={!newComment.trim()}>댓글 작성</button>
+						{/* <button onClick={handleAddComment} disabled={!newComment.trim()}>댓글 작성</button> */}
 					</div>
 				</div>
 				{/* 댓글 목록 */}
@@ -88,8 +88,8 @@ const Post = () => {
 								</div>
 								{comment.user === currentUser && (
 									<div>
-										<button onClick={() => handleEditComment(comment.id)}>수정</button>
-										<button onClick={() => handleDeleteComment(comment.id)}>삭제</button>
+										{/* <button onClick={() => handleEditComment(comment.id)}>수정</button>
+										<button onClick={() => handleDeleteComment(comment.id)}>삭제</button> */}
 									</div>
 								)}
 							</div>
@@ -97,7 +97,7 @@ const Post = () => {
 								<div>
 									<textarea value={editCommentText} onChange={(e) => setEditCommentText(e.target.value)}/>
 									<div>
-										<button onClick={handleSaveEdit}>저장</button>
+										{/* <button onClick={handleSaveEdit}>저장</button> */}
 										<button onClick={() => setEditingComment(null)}>취소</button>
 									</div>
 								</div>

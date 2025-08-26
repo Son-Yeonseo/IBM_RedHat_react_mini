@@ -44,7 +44,7 @@ const Home = () => {
             navigate("/login");
             return;
         }
-        navigate("/addEditPost/:postId");
+        navigate("/addPost");
     }
 
     return (
