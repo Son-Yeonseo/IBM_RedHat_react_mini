@@ -8,7 +8,8 @@ import Home from './components/Home';
 import Login from './components/Login';
 import SignIn from './components/SignIn';
 import Post from './components/Post';
-import AddEditPost from './components/AddEditPost';
+import AddPost from './components/AddPost';
+import EditPost from './components/EditPost';
 import Ranking from './components/Ranking';
 
 
@@ -21,7 +22,8 @@ const App = () => {
           <Route path='/login' element={<Login />} />
           <Route path='/signIn' element={<SignIn />} />
           <Route path='/post/:postId' element={<Post />} />
-          <Route path='/addEditpost/:postId' element={<AddEditPost />} />
+          <Route path='/addpost/:postId' element={<AddPost />} />
+          <Route path='/editpost/:postId' element={<EditPost />} />
           <Route path='/ranking' element={<Ranking />} />
       </Routes>
     </BrowserRouter>
