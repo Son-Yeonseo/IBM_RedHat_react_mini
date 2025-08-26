@@ -5,7 +5,7 @@ import Header from './components/Header';
 import NaviBar from './components/NaviBar';
 
 import Home from './components/Home';
-import Login from './components/Login';
+import LogIn from './components/LogIn';
 import SignIn from './components/SignIn';
 import Post from './components/Post';
 import AddEditPost from './components/AddEditPost';
@@ -18,7 +18,7 @@ const App = () => {
     <NaviBar />
       <Routes> 
           <Route path='/' element={<Home />} />
-          <Route path='/login' element={<Login />} />
+          <Route path='/logIn' element={<LogIn />} />
           <Route path='/signIn' element={<SignIn />} />
           <Route path='/post/:id' element={<Post />} />
           <Route path='/addEditpost/:id' element={<AddEditPost />} />
