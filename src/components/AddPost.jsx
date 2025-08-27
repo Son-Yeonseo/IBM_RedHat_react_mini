@@ -22,7 +22,7 @@ const AddPost = () => {
     const savePost =()=>{
 
         if(title && content){ // 내용 유무 체크
-            let saveCK=window.confirm('저장하시겠습까?') // 저장 컨펌 
+            let saveCK=window.confirm('저장하시겠습니까?') // 저장 컨펌 
 
             if(saveCK){
                 //1. 시간 포멧팅
@@ -51,7 +51,7 @@ const AddPost = () => {
                 const newPosts = [...posts, post] // useState는 비동기 작동으로 즉시 localStorage에 넣을 수 있는 변수 생성 후 작업
                 setPosts(newPosts);
                 localStorage.setItem('posts',JSON.stringify(newPosts)); //localstotage에 넣기
-                navigate('/글리스트');
+                navigate('/');
             }
         }else{
             alert('제목과 내용을 입력해주세요')
