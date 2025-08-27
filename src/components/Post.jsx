@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 import uuid4 from 'uuid4';
 
 /*
@@ -17,54 +18,55 @@ import uuid4 from 'uuid4';
 
 const Post = () => {
 
-  const postId = '1';     // 실제 라우팅에서는 /post/:postId URL에서 추출(useParams()), 여기서는 기본값 설정
+  const navigate = useNavigate();
+  const postId = useParams().id;
 
   const [post, setPost] = useState(null);                      // 현재 게시글 데이터
   const [comments, setComments] = useState([]);                // 댓글 목록
   const [newComment, setNewComment] = useState('');            // 새 댓글 입력값
   const [editingComment, setEditingComment] = useState(null);  // 수정 중인 댓글 ID
   const [editCommentText, setEditCommentText] = useState('');  // 수정 중인 댓글 내용
-  const [currentUser] = useState('사용자1');         						// 현재 로그인 사용자
+  const [currUser] = useState(JSON.parse(localStorage.getItem('currUser')));         						// 현재 로그인 사용자
 
   // 컴포넌트 초기화(useEffect) : 컴포넌트가 마운트되거나 postId가 변경될 때 실행
 	useEffect(() => {
-		initializeSampleData();		// 1. 샘플 데이터 생성
+		// initializeSampleData();		// 1. 샘플 데이터 생성
 		loadPost();								// 2. 게시글 로드
 		loadComments();						// 3. 댓글 로드
 	}, [postId]);
 
 	// 1. 샘플 데이터 생성
-	const initializeSampleData = () => {
-		const samplePosts = [
-			{
-				postId: '1',
-				user: '사용자1',
-				title: '제목1',
-				content: '내용1',
-				date: '2025-08-28 10:00',		// 작성일시
-				postLikes: 0,			// 좋아요 수
-				isLiked: false,		// 현재 사용자의 좋아요 상태
-			},
-		];
+	// const initializeSampleData = () => {
+	// 	const samplePosts = [
+	// 		{
+	// 			postId: '1',
+	// 			user: '사용자1',
+	// 			title: '제목1',
+	// 			content: '내용1',
+	// 			date: '2025-08-28 10:00',		// 작성일시
+	// 			postLikes: 0,			// 좋아요 수
+	// 			isLiked: false,		// 현재 사용자의 좋아요 상태
+	// 		},
+	// 	];
 
-		const sampleUsers = [
-			{
-				id: '아이디1',
-				password: '비밀번호1',
-				nickname: '사용자1',
-				userLikes: 0,				// 해당 사용자가 받은 총 좋아요 수
-			},
-		];
+	// 	const sampleUsers = [
+	// 		{
+	// 			id: '아이디1',
+	// 			password: '비밀번호1',
+	// 			nickname: '사용자1',
+	// 			userLikes: 0,				// 해당 사용자가 받은 총 좋아요 수
+	// 		},
+	// 	];
 
-		// 기존 데이터가 없을 때만 초기화 (중복 방지, 기존 데이터 보존)
-		if (!localStorage.getItem('posts')) {
-			localStorage.setItem('posts', JSON.stringify(samplePosts));
-		}
+	// 	// 기존 데이터가 없을 때만 초기화 (중복 방지, 기존 데이터 보존)
+	// 	if (!localStorage.getItem('posts')) {
+	// 		localStorage.setItem('posts', JSON.stringify(samplePosts));
+	// 	}
 		
-		if (!localStorage.getItem('users')) {
-			localStorage.setItem('users', JSON.stringify(sampleUsers));
-		}
-	}
+	// 	if (!localStorage.getItem('users')) {
+	// 		localStorage.setItem('users', JSON.stringify(sampleUsers));
+	// 	}
+	// }
 
 	// 2. 게시글 로드
 	const loadPost = () => {
@@ -72,6 +74,14 @@ const Post = () => {
     const foundPost = posts.find(p => p.postId === postId);		// 고유번호가 일치하는 특정 게시글을 반환
     setPost(foundPost);
   };
+
+  const handleEditPost = (postId) =>{
+    navigate(`/editpost/${postId}`);
+  }
+
+  const handleDeletePost = (postId) =>{
+    navigate(`/editpost/${postId}`);
+  }
 
 	// 3. 댓글 로드
   const loadComments = () => {
@@ -145,7 +155,7 @@ const Post = () => {
 		const newCommentObj = {
 			id: uuid4(),     							 // uuid4 : 고유 식별자 생성
 			postId,                        // 어떤 게시글의 댓글인지
-			user: currentUser,           	 // 작성자
+			user:  currUser,           	 // 작성자
 			content: newComment.trim(),    // 내용 (공백 제거)
 			date: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')} 
           	${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`
@@ -203,13 +213,13 @@ const Post = () => {
 					<h2>{post.title}</h2>
 					<div>
 						<div>
-							<span>{post.user}</span>
+							<span>{post.user.userNickname}</span>
 							<span>{post.date}</span>
 						</div>
-						{post.user === currentUser && (
+						{post.user.id ===  currUser.id && (
 							<div>
-								<button>수정</button>
-								<button>삭제</button>
+								<button onClick={() => handleEditPost(post.postId)}>수정</button>
+								<button onClick={() => handleDeletePost(post.postId)}>삭제</button>
 							</div>
 						)}
 					</div>
@@ -244,10 +254,10 @@ const Post = () => {
 						<div key={comment.id}>
 							<div>
 								<div>
-									<span>{comment.user}</span>
+									<span>{comment.user.userNickname}</span>
 									<span>{comment.date}</span>
 								</div>
-								{comment.user === currentUser && (
+								{comment.user.id ===  currUser.id && (
 									<div>
 										<button onClick={() => handleEditComment(comment.id)}>수정</button>
 										<button onClick={() => handleDeleteComment(comment.id)}>삭제</button>

@@ -9,7 +9,7 @@ const EditPost =()=>{
     const [post,setPost] = useState({postId:'',user:'',title:'',content:'', date:'', postLikes:'',})
     const contentRef= useRef(null);
     const [currUser,setCurrUser] = useState({});
-    const {ID} =useParams();
+    const {ID} =useParams().id;
     const navigate = useNavigate();
   
     useEffect(()=>{
