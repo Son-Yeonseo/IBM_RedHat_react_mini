@@ -179,6 +179,9 @@ const Post = () => {
   if (!post) {
     return <div className="text-center text-gray-500">게시글을 찾을 수 없습니다.</div>;
   }
+  if (!post) {
+    return <div className="text-center text-gray-500">게시글을 찾을 수 없습니다.</div>;
+  }
 
   return (
 	<div className="flex items-center justify-center h-screen bg-[#FFFAE9]">

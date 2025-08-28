@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import uuid4 from 'uuid4';
 import { useNavigate } from 'react-router-dom';
+import uuid4 from 'uuid4'; 
+import { UserContext } from './UserProvider';
 
 const AddPost = () => {
   const [title, setTitle] = useState('');

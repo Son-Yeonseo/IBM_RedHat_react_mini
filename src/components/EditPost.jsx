@@ -1,6 +1,7 @@
 /* eslint-disable no-unreachable */
 import React, { useState, useRef, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { UserContext } from './UserProvider';
 
 const EditPost = () => {
   const [title, setTitle] = useState('');
