@@ -28,7 +28,8 @@ const Home = () => {
 
     // 로그아웃 - Context의 setCurrUser 사용
     const handleLogout = () => {
-        setCurrUser(null);
+        const confirm=window.confirm("정말 로그아웃하시겠습니까?");
+        !confirm ?  setCurrUser(currUser) : setCurrUser(null)
     };
 
     // 게시글 등록 버튼 클릭 시 - 경로 수정 및 새 게시글 ID 생성
@@ -43,7 +44,7 @@ const Home = () => {
     }
 
     return (
-      <main className="min-h-screen bg-[#FFFAE9] text-black pt-12 md:pt-16">
+      <main className="min-h-screen bg-[#F5F5DC] text-black pt-12 md:pt-16">
   <div className="mx-auto max-w-5xl p-6 md:grid md:grid-cols-3 md:gap-6 rounded-[28px] bg-[#CFF5EA] ring-1 ring-[#BDEDE1]">
 <section className="md:col-span-1 md:col-start-3 md:row-start-1 rounded-2xl border border-[#E6E6E6] bg-white shadow-sm">      <div className="p-6">
         {!currUser ? (
@@ -144,8 +145,6 @@ const Home = () => {
     </section>
   </div>
 </main>
-
-
     );
 };
 
