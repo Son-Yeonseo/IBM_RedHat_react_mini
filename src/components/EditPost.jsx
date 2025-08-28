@@ -10,8 +10,6 @@ const EditPost = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  // Context에서 전역 상태 가져오기
-  // 직접 localstrage에서 갖고 오니 수정 후 Post에 반영이 안됨. 
   const { currUser, posts, setPosts } = useContext(UserContext);
   const [post, setPost] = useState(null);
 
@@ -26,9 +24,7 @@ const EditPost = () => {
       alert("해당 게시물을 찾을 수 없습니다.");
       navigate("/");
     }
-  }, [id, posts, navigate]); 
-  //초기에 []로 초기 랜더링시에만 동작하게 코딩했으나, 더 의존성 기반에 반응하기 위해 수정
-  //editpost/1 수정 중 다른 접속자가 수정하면 자동으로 수정된 post로 작업할 수있게
+  }, [id, posts, navigate]);
 
   // 저장
   const savePost = (e) => {
@@ -60,9 +56,8 @@ const EditPost = () => {
       p.postId === Modipost.postId ? Modipost : p
     );
 
-    setPosts(updatedPosts); // Context 상태 업데이트 → localStorage 자동 반영
-
-    navigate(`/post/${id}`); // 수정한 글 상세 페이지로 이동
+    setPosts(updatedPosts); 
+    navigate(`/post/${id}`);
   };
 
   // 취소
@@ -81,26 +76,58 @@ const EditPost = () => {
     }
   };
 
-
   return (
-    <div>
-      <form onSubmit={savePost}>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          onKeyDown={titleKeyDown}
-        />
-        <textarea
-          ref={contentRef}
-          value={content}
-          placeholder="내용을 입력해주세요"
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <button type="submit">수정완료</button>
-        <button type="button" onClick={cancelPost}>취소</button>
-        {/* button type='button'한 이유는 Form 형태여서 기본 타입이 submit임. 따라서 더 논리적으로 작성 */}
-      </form>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-custom-bg">
+      {/* 상단 제목 */}
+      <h1 className="text-5xl font-title text-custom-r-btn mb-8">
+        Hi! Study
+      </h1>
+
+      {/* 수정 카드 */}
+      <div className="w-[800px] bg-custom-div rounded-2xl shadow-lg p-8">
+        <h2 className="text-3xl font-cute font-bold text-center text-custom-line-col mb-6">
+          Modify
+        </h2>
+
+        <form onSubmit={savePost} className="flex flex-col gap-6">
+          {/* 제목 입력 */}
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            onKeyDown={titleKeyDown}
+            placeholder="제목을 입력해주세요..."
+            className="w-full p-4 rounded-xl border border-custom-b-btn focus:outline-none focus:ring-2 focus:ring-custom-line-col bg-white text-gray-700 font-cute"
+          />
+
+          {/* 내용 입력 */}
+          <textarea
+            ref={contentRef}
+            value={content}
+            placeholder="내용을 입력해주세요..."
+            onChange={(e) => setContent(e.target.value)}
+            rows={6}
+            className="w-full p-4 rounded-xl border border-custom-b-btn focus:outline-none focus:ring-2 focus:ring-custom-line-col bg-white text-gray-700 font-cute"
+          />
+
+          {/* 버튼 영역 */}
+          <div className="flex justify-center gap-4">
+            <button
+              type="submit"
+              className="px-6 py-2 rounded-lg bg-custom-r-btn text-white font-button font-semibold shadow-md hover:opacity-90"
+            >
+              Confirm
+            </button>
+            <button
+              type="button"
+              onClick={cancelPost}
+              className="px-6 py-2 rounded-lg bg-custom-b-btn text-white font-button font-semibold shadow-md hover:opacity-90"
+            >
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
