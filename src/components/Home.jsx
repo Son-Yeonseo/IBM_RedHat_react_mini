@@ -43,7 +43,7 @@ const Home = () => {
     }
 
     return (
-      <main className="min-h-screen bg-[#F5F5DC] text-black pt-12 md:pt-16">
+      <main className="min-h-screen bg-[#FFFAE9] text-black pt-12 md:pt-16">
   <div className="mx-auto max-w-5xl p-6 md:grid md:grid-cols-3 md:gap-6 rounded-[28px] bg-[#CFF5EA] ring-1 ring-[#BDEDE1]">
 <section className="md:col-span-1 md:col-start-3 md:row-start-1 rounded-2xl border border-[#E6E6E6] bg-white shadow-sm">      <div className="p-6">
         {!currUser ? (
