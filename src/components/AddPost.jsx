@@ -55,7 +55,7 @@ const AddPost = () => {
   const cancelPost = () => {
     const check = window.confirm('게시물 작성을 취소하시겠습니까?');
     if (check) {
-      navigate('/');
+      navigate('/Post');
     }
   };
 
@@ -73,60 +73,65 @@ const AddPost = () => {
     return null;
   }
 
-  return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-custom-bg">
+ return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-[#FFFAE9]">
       {/* 상단 제목 */}
-      <h1 className="text-5xl font-title text-custom-r-btn mb-8">
-        Hi! Study
+      <h1 className="text-5xl font-bold text-[#FF5A2D] mb-8">
+        Hi! <span className="text-[#23A491]">Study</span>
       </h1>
 
       {/* 글쓰기 카드 */}
-      <div className="w-[800px] bg-custom-div rounded-2xl shadow-lg p-8">
-        <h2 className="text-3xl font-cute font-bold text-center text-custom-line-col mb-6">
+      <div className="w-[800px] bg-[#23A491]/20 rounded-2xl shadow-lg p-8">
+        <h2 className="text-3xl font-bold text-center text-[#23A491] mb-6">
           Write
         </h2>
 
-        <form onSubmit={savePost} className="flex flex-col gap-6">
-          {/* 제목 입력 */}
-          <input
-            type="text"
-            value={title}
-            placeholder="제목을 입력해주세요..."
-            onKeyDown={titleKeyDown}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-4 rounded-xl border border-custom-b-btn focus:outline-none focus:ring-2 focus:ring-custom-line-col bg-white text-gray-700 font-cute"
-          />
+        {currUser ? (
+          <form onSubmit={savePost} className="flex flex-col gap-6">
+            {/* 제목 입력 */}
+            <input
+              type="text"
+              value={title}
+              placeholder="제목을 입력해주세요..."
+              onKeyDown={titleKeyDown}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full p-4 rounded-xl border border-[#5ABBEC] focus:outline-none focus:ring-2 focus:ring-[#23A491] bg-[#FFFFFF] text-[#555555]"
+            />
 
-          {/* 내용 입력 */}
-          <textarea
-            ref={contentRef}
-            value={content}
-            placeholder="내용을 입력해주세요..."
-            onChange={(e) => setContent(e.target.value)}
-            rows={6}
-            className="w-full p-4 rounded-xl border border-custom-b-btn focus:outline-none focus:ring-2 focus:ring-custom-line-col bg-white text-gray-700 font-cute"
-          />
+            {/* 내용 입력 */}
+            <textarea
+              ref={contentRef}
+              value={content}
+              placeholder="내용을 입력해주세요..."
+              onChange={(e) => setContent(e.target.value)}
+              rows={6}
+              className="w-full p-4 rounded-xl border border-[#5ABBEC] focus:outline-none focus:ring-2 focus:ring-[#23A491] bg-[#FFFFFF] text-[#555555]"
+            />
 
-          {/* 버튼 영역 */}
-          <div className="flex justify-center gap-4">
-            <button
-              type="submit"
-              className="px-6 py-2 rounded-lg bg-custom-r-btn text-white font-button font-semibold shadow-md hover:opacity-90"
-            >
-              Confirm
-            </button>
-            <button
-              type="button"
-              onClick={cancelPost}
-              className="px-6 py-2 rounded-lg bg-custom-b-btn text-white font-button font-semibold shadow-md hover:opacity-90"
-            >
-              Cancel
-            </button>
-          </div>
-        </form>
+            {/* 버튼 영역 */}
+            <div className="flex justify-center gap-4">
+              <button
+                type="submit"
+                className="px-6 py-2 rounded-lg bg-[#FF5A2D] text-[#FFFFFF] font-semibold shadow-md hover:opacity-90"
+              >
+                Confirm
+              </button>
+              <button
+                type="button"
+                onClick={cancelPost}
+                className="px-6 py-2 rounded-lg bg-[#5ABBEC] text-[#FFFFFF] font-semibold shadow-md hover:opacity-90"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        ) : (
+          navigate('/Login')
+        )}
       </div>
     </div>
   );
 };
+
 
 export default AddPost;
