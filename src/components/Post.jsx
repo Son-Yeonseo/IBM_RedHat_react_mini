@@ -11,12 +11,30 @@ const Post = () => {
   const [newComment, setNewComment] = useState('');
   const [editingComment, setEditingComment] = useState(null);
   const [editCommentText, setEditCommentText] = useState('');
-  const [currUser] = useState(JSON.parse(localStorage.getItem('currUser')));
+
+  // currUser null 체크 추가
+  const [currUser] = useState(() => {
+    try {
+      const user = localStorage.getItem('currUser');
+      return user ? JSON.parse(user) : null;
+    } catch (error) {
+      console.error('Failed to parse currUser from localStorage:', error);
+      return null;
+    }
+  });
 
   useEffect(() => {
+    // 로그인하지 않은 사용자는 로그인 페이지로 리다이렉트
+    if (!currUser) {
+      alert('로그인이 필요합니다.');
+      navigate('/login'); // 또는 적절한 로그인 페이지 경로
+      return;
+    }
+    
     loadPost();
     loadComments();
-  }, [postId]);
+  }, [postId, currUser, navigate]);
+
 
   const loadPost = () => {
     const posts = JSON.parse(localStorage.getItem('posts') || '[]');
@@ -151,6 +169,7 @@ const Post = () => {
   };
 
   const handleDeleteComment = (commentId) => {
+
     if (window.confirm('댓글을 삭제하시겠습니까?')) {
       const updatedComments = comments.filter((c) => c.id !== commentId);
       setComments(updatedComments);
@@ -163,6 +182,7 @@ const Post = () => {
   }
 
   return (
+	<div className="flex items-center justify-center h-screen bg-[#FFFAE9]">
     <div className="w-[800px] h-[771px] mx-auto mt-12 bg-custom-div rounded-[40px] flex flex-col items-center p-8 shadow-lg">
       {/* 게시글 영역 */}
       <div className="bg-white w-[600px] rounded-[30px] shadow-md p-6">
@@ -247,7 +267,7 @@ const Post = () => {
                     </span>
                     <span>{comment.date}</span>
                   </div>
-                  {comment.user.id === currUser.id && (
+                  {comment.user.userId === currUser.userId && (
                     <div className="space-x-2">
                       <button
                         onClick={() => handleEditComment(comment.id)}
@@ -295,6 +315,7 @@ const Post = () => {
         </div>
       </div>
     </div>
+	</div>
   );
 };
 
