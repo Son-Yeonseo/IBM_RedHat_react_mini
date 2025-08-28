@@ -37,7 +37,7 @@ const TitleNaviBar = () => {
                                 <span onClick={handleLogOut} className="hover:text-[#F36B3B] transition-colors duration-200 cursor-pointer">로그아웃</span>
                             </li>
                             <li>
-                                <span onClick={handleWritePost} className="hover:text-[#F36B3B] transition-colors duration-200 cursor-pointer">게시글 작성</span>
+                                <span onClick={handleWritePost} className="hover:text-[#F36B3B] transition-colors duration-200 cursor-pointer">게시글 등록</span>
                             </li>
                         </>) : 
                         (<li>
