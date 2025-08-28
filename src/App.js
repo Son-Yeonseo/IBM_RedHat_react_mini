@@ -13,10 +13,10 @@ import EditPost from './components/EditPost';
 const App = () => {
   return (
     <BrowserRouter>
-      <TitleNaviBar /> {/* Header와 NaviBar를 TitleNaviBar로 통합 */}
+      <TitleNaviBar /> 
       <Routes> 
         <Route path='/' element={<Home />} />
-        <Route path='/login' element={<LogIn />} /> {/* 경로 통일: logIn -> login */}
+        <Route path='/login' element={<LogIn />} />
         <Route path='/signIn' element={<SignIn />} />
         <Route path='/post/:id' element={<Post />} />
         <Route path='/addpost' element={<AddPost />} />

@@ -43,74 +43,109 @@ const Home = () => {
     }
 
     return (
-        <main>
-            {/* user profile */}
-            <section>
-                {!currUser ? (
-                    <div>
-                        <p>비로그인 상태입니다.</p>
-                        <button onClick={() => navigate("/login")}>로그인</button>
-                    </div>
-                ) : (
-                    <div>
-                        <div>
-                            <p>{currUser.userNickname}님</p> {/* nickname -> userNickname으로 수정 */}
-                        </div>
-                        <div>
-                            <p>Likes</p>
-                            <p>{receivedLikes}</p>
-                        </div>
-                        <button onClick={handleLogout}>로그아웃</button>
-                    </div>
-                )}
-            </section>
+      <main className="min-h-screen bg-[#FFFAE9] text-black pt-12 md:pt-16">
+  <div className="mx-auto max-w-5xl p-6 md:grid md:grid-cols-3 md:gap-6 rounded-[28px] bg-[#CFF5EA] ring-1 ring-[#BDEDE1]">
+<section className="md:col-span-1 md:col-start-3 md:row-start-1 rounded-2xl border border-[#E6E6E6] bg-white shadow-sm">      <div className="p-6">
+        {!currUser ? (
+          <div className="space-y-4 text-center">
+            <p className="text-black/60">로그인 해주세요.</p>
+            <button
+              onClick={() => navigate("/login")}
+              className="rounded-full bg-[#FF5A2D] px-6 py-2 text-white transition hover:bg-[#ff6f4a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A2D]/60"
+            >
+              로그인
+            </button>
+          </div>
+        ) : (
+          <div className="flex flex-col gap-4">
+            <div className="space-y-1">
+              <p className="text-lg font-semibold">{currUser.userNickname}님</p>
+              <p className="text-sm text-black/70">환영합니다.</p>
+            </div>
+            <div className="flex items-center justify-between">
+              <div className="rounded-xl border border-[#23A491]/40 bg-[#23A491]/5 px-4 py-2">
+                <p className="text-xs font-bold tracking-wide text-[#FF5A2D]">Likes</p>
+                <p className="text-base font-semibold">{receivedLikes}</p>
+              </div>
+              <button
+                onClick={handleLogout}
+                className="rounded-full bg-[#FF5A2D] px-4 py-2 text-white transition hover:bg-[#ff6f4a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A2D]/60"
+              >
+                로그아웃
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
 
-            {/* main board */}
-            <section>
-                <div>
-                    <h2>게시글 목록</h2>
-                    <button onClick={handlePostSubmit}>게시글 등록</button>
-                </div>
-                {posts.length === 0 ? (
-                    <p>현재 게시글이 없습니다.</p>
-                ) : (
-                    <>
-                        <ul>
-                            {restPosts.map((post) =>
-                                <li key={post.postId}>
-                                    <Link to={`/post/${post.postId}`}>
-                                        <p>{post.title}</p>
-                                        <p>{post.user?.userNickname}</p> {/* user -> user.userNickname으로 수정 */}
-                                        <p>{post.postLikes}개 좋아요</p> {/* likes -> postLikes로 수정 */}
-                                    </Link>
-                                </li>
-                            )}
-                        </ul>
-                    </>
-                )}
-            </section>
+  <section className="md:col-span-2 md:col-start-1 md:row-span-2 rounded-2xl border border-[#BDEDE1] bg-white/90 shadow-sm backdrop-blur-sm">
+      <div className="flex items-center justify-between border-b border-[#BDEDE1] p-6">
+        <h2 className="text-2xl font-extrabold text-[#FF5A2D]">Study Board</h2>
+        <button
+          onClick={handlePostSubmit}
+          className="rounded-full bg-[#FF5A2D] px-5 py-2 text-white transition hover:bg-[#ff6f4a] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#FF5A2D]/60"
+        >
+          게시글 등록
+        </button>
+      </div>
 
-            {/* popular posts */}
-            <section>
-                <h2>인기 게시글</h2>
-                {popularPosts.length === 0 ? (
-                    <p>인기 게시글이 없습니다.</p>
-                ) : (
-                    <ul>
-                        {popularPosts.map(post => (
-                            <li key={post.postId}>
-                                <Link to={`/post/${post.postId}`}>
-                                    <p>{post.title}</p>
-                                    <p>
-                                        {post.user?.userNickname}/{Number(post.postLikes) || 0}개 좋아요
-                                    </p>
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </section>
-        </main>
+      {posts.length === 0 ? (
+        <p className="p-6 text-black/70">현재 게시글이 없습니다.</p>
+      ) : (
+        <ul className="divide-y divide-[#EAEAEA]">
+          {restPosts.map((post) => (
+            <li key={post.postId} className="px-6">
+              <Link
+                to={`/post/${post.postId}`}
+                className="group block rounded-xl p-5 transition-colors hover:bg-[#23A491]/10"
+              >
+                <p className="font-semibold">{post.title}</p>
+                <p className="mt-1 text-sm text-black/70">
+                  {post.user?.userNickname}
+                  <span className="mx-2 text-[#23A491]">•</span>
+                  {post.postLikes}개 좋아요
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+ <section className="md:col-span-1 md:col-start-3 md:row-start-2 rounded-2xl border border-[#BDEDE1] bg-white/90 shadow-sm backdrop-blur-sm">
+      <div className="border-b border-[#BDEDE1] p-6">
+        <h2 className="inline-flex items-center gap-2 rounded-full bg-[#FF5A2D]/10 px-3 py-1 text-xl font-bold text-[#FF5A2D]">
+          오늘의 게시글 🔥
+        </h2>
+      </div>
+
+      {popularPosts.length === 0 ? (
+        <p className="p-6 text-black/70">인기 게시글이 없습니다.</p>
+      ) : (
+        <ul className="divide-y divide-[#EAEAEA]">
+          {popularPosts.map((post) => (
+            <li key={post.postId}>
+              <Link
+                to={`/post/${post.postId}`}
+                className="block p-5 transition-colors hover:bg-[#23A491]/10"
+              >
+                <p className="font-semibold group-hover:underline">{post.title}</p>
+                <p className="mt-1 text-sm text-black/70">
+                  {post.user?.userNickname}
+                  <span className="mx-2 text-[#23A491]">/</span>
+                  {Number(post.postLikes) || 0}개 좋아요
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </div>
+</main>
+
+
     );
 };
 
